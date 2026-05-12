@@ -1,3 +1,5 @@
+import type { Priority } from "../../prisma/database/enums.js";
+
 export default interface BaseInterface {
     get id():string;
      
@@ -6,8 +8,8 @@ export default interface BaseInterface {
 export interface TaskInterface extends BaseInterface {
     get title(): string,
     get description(): string,
-    get done():boolean,
-    get createdAt():Date,
-    get dueDate():Date,
-    validateTask(): void
+    get done(): boolean,
+    get createdAt(): Date,
+    get dueDate(): Date,
+    get priority(): Priority
 }
