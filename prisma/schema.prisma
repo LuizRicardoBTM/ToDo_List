@@ -11,7 +11,7 @@ model Task {
     id String @id 
     title String
     description String
-    priority Priority?
+    priority Priority
     createdAt DateTime @default(now())
     done Boolean
     dueDate DateTime

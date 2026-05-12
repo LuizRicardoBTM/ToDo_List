@@ -2,6 +2,7 @@ import { PrismaClient } from "../../prisma/database/client.js";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import type { TaskInterface } from "../entity/entity.interface.js";
 import type TaskRepositoryInterface from "./repository.interface.js";
+import { TaskEntity } from "../entity/task.entity.js";
 
 const adapter = new PrismaBetterSqlite3({
     url: process.env.DATABASE_URL
@@ -47,19 +48,23 @@ class TaskRepository implements TaskRepositoryInterface{
         
     }
 
-    async findById(id: string): Promise<TaskInterface | null> {
-        const task = await prisma.task.findUnique({
+    async findById(id: string): Promise<TaskEntity | null> {
+        const query = await prisma.task.findUnique({
             where: {id: id}
         })
-        
-        if (!task) {
+
+        if (!query) {
             return null;
         }
-        
+
+        const task = new TaskEntity(query)
         return task;
     }
 
     async findAll(): Promise<TaskInterface[]> {
-        
+        const query = await prisma.task.findMany({})
+
+        const task = new TaskEntity(query)
+        return task;
     }
 }
