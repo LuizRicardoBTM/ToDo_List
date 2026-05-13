@@ -3,7 +3,6 @@ import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import type { TaskInterface } from "../entity/entity.interface.js";
 import type TaskRepositoryInterface from "./repository.interface.js";
 import { TaskEntity } from "../entity/task.entity.js";
-import { throwDeprecation } from "node:process";
 
 const adapter = new PrismaBetterSqlite3({
     url: process.env.DATABASE_URL
@@ -11,7 +10,7 @@ const adapter = new PrismaBetterSqlite3({
 
 const prisma = new PrismaClient({adapter});
 
-class TaskRepository implements TaskRepositoryInterface{
+export class TaskRepository implements TaskRepositoryInterface{
     
     async create(task: TaskInterface): Promise<void> {
         try{
