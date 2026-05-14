@@ -1,8 +1,12 @@
-import type { Priority } from "../../prisma/database/enums.js";
-
 export default interface BaseInterface {
     get id():string;
      
+}
+
+export enum Priority {
+    high = "high",
+    medium = "medium",
+    low = "low"
 }
 
 export interface TaskInterface extends BaseInterface {

@@ -1,6 +1,6 @@
 import { PrismaClient } from "../../prisma/database/client.js";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
-import type { TaskInterface } from "../entity/entity.interface.js";
+import type { TaskInterface, Priority } from "../entity/entity.interface.js";
 import type TaskRepositoryInterface from "./repository.interface.js";
 import { TaskEntity } from "../entity/task.entity.js";
 

@@ -1,5 +1,4 @@
-import type { Priority } from "../../prisma/database/enums.js";
-import type { TaskInterface } from "./entity.interface.js";
+import type { TaskInterface, Priority } from "./entity.interface.js";
 import type { Task } from "../../prisma/database/client.js";
 
 
@@ -39,6 +38,8 @@ export class TaskEntity implements TaskInterface{
     }
 
     get priority(): Priority {
+        let today = new Date();
+
         return this._priority;
     }
 
