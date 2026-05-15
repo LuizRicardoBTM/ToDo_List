@@ -1,6 +1,6 @@
 import { PrismaClient } from "../../prisma/database/client.js";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
-import type { TaskInterface, Priority } from "../entity/entity.interface.js";
+import type { TaskInterface } from "../entity/entity.interface.js";
 import type TaskRepositoryInterface from "./repository.interface.js";
 import { TaskEntity } from "../entity/task.entity.js";
 
@@ -19,7 +19,6 @@ export class TaskRepository implements TaskRepositoryInterface{
                     id: task.id,
                     title: task.title,
                     description: task.description,
-                    priority: task.priority,
                     createdAt: task.createdAt,
                     done: task.done,
                     dueDate: task.dueDate
@@ -49,7 +48,6 @@ export class TaskRepository implements TaskRepositoryInterface{
                 data: {
                     title: task.title,
                     description: task.description,
-                    priority: task.priority,
                     createdAt: task.createdAt,
                     done: task.done,
                     dueDate: task.dueDate
