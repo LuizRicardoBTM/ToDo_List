@@ -1,7 +1,7 @@
 import type { TaskInterface } from "../entity/entity.interface.js";
 import type TaskRepositoryInterface from "../repository/repository.interface.js";
 
-export class FindTaskByIdUseCase {
+export class FindAllTasksUseCase {
     constructor( private taskRepository: TaskRepositoryInterface ){}
 
     async execute(): Promise<TaskInterface[]>{
