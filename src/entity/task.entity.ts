@@ -1,6 +1,5 @@
-import type { TaskInterface } from "./entity.interface.js";
+import type { TaskInput, TaskInterface } from "./entity.interface.js";
 import { Priority } from "./entity.interface.js";
-import type { Task } from "../../prisma/database/client.js";
 
 
 export class TaskEntity implements TaskInterface{
@@ -12,7 +11,7 @@ export class TaskEntity implements TaskInterface{
     private _dueDate: Date
 
 
-    constructor(task: Task) {
+    constructor(task: TaskInput) {
         this._id = task.id;
         this._title = task.title;
         this._description = task.description;
@@ -49,7 +48,7 @@ export class TaskEntity implements TaskInterface{
             priority = Priority.high;
         }
 
-        if(this._dueDate >= fiveDaysFromNow){
+        if(this._dueDate > fiveDaysFromNow){
             priority = Priority.low;
         }
 
