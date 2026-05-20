@@ -1,4 +1,5 @@
 import express from "express";
+import 'dotenv/config';
 import { TaskController } from "./controllers/task.controller.js";
 import { taskRouter } from "./routes/task.router.js";
 import { TaskRepository } from "./repository/task.repository.js";

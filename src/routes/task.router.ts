@@ -4,11 +4,11 @@ import { TaskController } from "../controllers/task.controller.js";
 export function taskRouter(controller: TaskController): Router {
     const router = Router();
     
-    router.post('/tasks', controller.create.bind(controller));
-    router.put('/tasks/:id', controller.update.bind(controller));
-    router.delete('/tasks/:id', controller.delete.bind(controller));
-    router.get('/tasks/:id', controller.findById.bind(controller));
-    router.get('/tasks', controller.findAll.bind(controller));
+    router.post('/', controller.create.bind(controller));
+    router.put('/:id', controller.update.bind(controller));
+    router.delete('/:id', controller.delete.bind(controller));
+    router.get('/:id', controller.findById.bind(controller));
+    router.get('/', controller.findAll.bind(controller));
     
     return router;
 }

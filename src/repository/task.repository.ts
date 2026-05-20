@@ -25,7 +25,8 @@ export class TaskRepository implements TaskRepositoryInterface{
                 }
             })
         }
-        catch{
+        catch (error){
+            console.error('Prisma error: ', error);
             throw new Error("Couldn't create the task")
         }
     }
