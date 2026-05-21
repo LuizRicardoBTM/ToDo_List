@@ -1,4 +1,4 @@
-import type { TaskInput, TaskInterface } from "./entity.interface.js";
+import type { TaskDTO, TaskInterface } from "./entity.interface.js";
 import { Priority } from "./entity.interface.js";
 
 
@@ -11,12 +11,12 @@ export class TaskEntity implements TaskInterface{
     private _dueDate: Date
 
 
-    constructor(task: TaskInput) {
+    constructor(task: TaskDTO) {
         this._id = task.id;
         this._title = task.title;
         this._description = task.description;
-        this._createdAt = task.createdAt;
-        this._done = task.done;
+        this._createdAt = task.createdAt || new Date();
+        this._done = task.done || false;
         this._dueDate = task.dueDate;
     }
 

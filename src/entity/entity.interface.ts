@@ -18,11 +18,11 @@ export interface TaskInterface extends BaseInterface {
     get priority(): Priority
 }
 
-export interface TaskInput {
+export interface TaskDTO {
     id: string;
     title: string,
     description: string,
-    createdAt: Date,
-    done: boolean,
-    dueDate: Date,
+    createdAt?: Date,
+    done?: boolean,
+    dueDate: Date
 }

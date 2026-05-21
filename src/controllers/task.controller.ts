@@ -1,10 +1,10 @@
 import type { Request, Response } from "express";
-import type { TaskInput } from "../entity/entity.interface.js";
 import type { CreateTaskUseCase } from "../usecases/task.create.js";
 import type { DeleteTaskUseCase } from "../usecases/task.delete.js";
 import type { FindAllTasksUseCase } from "../usecases/task.find.all.js";
 import type { FindTaskByIdUseCase } from "../usecases/task.find.by.id.js";
 import type { UpdateTaskUseCase } from "../usecases/task.update.js";
+import { TaskDto } from "../dto/task.dto.js";
 
 export class TaskController {
     constructor(
@@ -18,11 +18,9 @@ export class TaskController {
 
     async create(req: Request, res: Response): Promise<void> {
         try {
-            const data = req.body;
+            const dto = TaskDto.createValidation(req.body);
 
-            const task: TaskInput = data;
-
-            await this.createUseCase.execute(task);
+            await this.createUseCase.execute(dto);
 
             res.status(201).json({ message: 'New Task Created' });
 
@@ -51,11 +49,9 @@ export class TaskController {
 
     async update(req: Request, res: Response): Promise<void>{
         try {
-            const data = req.body;
+            const dto = TaskDto.updateValidation(req.body);
 
-            const updatedTask: TaskInput = data;
-
-            await this.updateUseCase.execute(updatedTask);
+            await this.updateUseCase.execute(dto);
 
             res.status(200).json({ message: 'Task updated' });
 
