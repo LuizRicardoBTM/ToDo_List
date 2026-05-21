@@ -12,7 +12,7 @@ export class TaskDto {
         this.title = data.title;
         this.description = data.description;
         this.createdAt = data.createdAt || new Date();
-        this.done = data.done || false;
+        this.done = data.done ?? false;
         this.dueDate = data.dueDate;
     }
 
@@ -69,9 +69,6 @@ export class TaskDto {
         }
         if (typeof input.description !== 'string') {
             throw new Error('description must be a string');
-        }
-        if (input.createdAt !== undefined && !(input.dueDate instanceof Date) && !isNaN(input.createdAt.getTime())) {
-            throw new Error('createdAt must be a string if provided');
         }
         if (input.done !== undefined && typeof input.done !== 'boolean') {
             throw new Error('done must be a boolean if provided');
