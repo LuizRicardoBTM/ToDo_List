@@ -20,6 +20,18 @@ export class TaskEntity implements TaskInterface{
         this._dueDate = task.dueDate;
     }
 
+    toJSON() {
+        return {
+            id: this._id,
+            title: this._title,
+            description: this._description,
+            createdAt: this._createdAt,
+            done: this._done,
+            dueDate: this._dueDate,
+            priority: this.priority
+        }
+    }
+
     get id(): string {
         return this._id;
     }
