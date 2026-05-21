@@ -28,6 +28,7 @@ export class TaskController {
 
         } catch(error) {
 
+            console.log('Controller error: ',error);
             res.status(500).json({ message: 'Error creating new task' });
         
         }
