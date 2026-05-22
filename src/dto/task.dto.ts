@@ -12,7 +12,7 @@ export class TaskDto {
         this.title = data.title;
         this.description = data.description;
         this.createdAt = data.createdAt || new Date();
-        this.done = data.done || false;
+        this.done = data.done ?? false;
         this.dueDate = data.dueDate;
     }
 
@@ -33,23 +33,21 @@ export class TaskDto {
         if (!input.description || typeof input.description !== 'string') {
             throw new Error('description is required and must be a string');
         }
-        if (input.createdAt !== undefined && !(input.dueDate instanceof Date) && !isNaN(input.createdAt.getTime())) {
-            throw new Error('createdAt must be a string if provided');
-        }
         if (input.done !== undefined && typeof input.done !== 'boolean') {
             throw new Error('done must be a boolean if provided');
         }
-        if (!input.dueDate || !(input.dueDate instanceof Date) || isNaN(input.dueDate.getTime())) {
-            throw new Error('dueDate is required and must be a valid Date');
+        const parsedDueDate = new Date(input.dueDate as unknown as string);
+        if (!input.dueDate || isNaN(parsedDueDate.getTime())) {
+            throw new Error('dueDate is required and must be a valid date string');
         }
         
         const dto = new TaskDto(input as TaskDTO);
         dto.id = input.id as string;
         dto.title = input.title as string;
         dto.description = input.description as string;
-        dto.createdAt = input.createdAt as Date;
-        dto.done = input.done as boolean;
-        dto.dueDate = input.dueDate as Date;
+        dto.createdAt = input.createdAt as Date ?? new Date();
+        dto.done = input.done ?? false;
+        dto.dueDate = parsedDueDate;
         return dto;
     }
 
@@ -70,14 +68,12 @@ export class TaskDto {
         if (typeof input.description !== 'string') {
             throw new Error('description must be a string');
         }
-        if (input.createdAt !== undefined && !(input.dueDate instanceof Date) && !isNaN(input.createdAt.getTime())) {
-            throw new Error('createdAt must be a string if provided');
-        }
         if (input.done !== undefined && typeof input.done !== 'boolean') {
             throw new Error('done must be a boolean if provided');
         }
-        if (!(input.dueDate instanceof Date) || isNaN(input.dueDate.getTime())) {
-            throw new Error('dueDate must be a valid Date');
+        const parsedDueDate = new Date(input.dueDate as unknown as string);
+        if (!input.dueDate || isNaN(parsedDueDate.getTime())) {
+            throw new Error('dueDate is required and must be a valid date string');
         }
         
         const dto = new TaskDto(input as TaskDTO);
@@ -85,7 +81,7 @@ export class TaskDto {
         dto.title = input.title as string;
         dto.description = input.description as string;
         dto.done = input.done as boolean;
-        dto.dueDate = input.dueDate as Date;
+        dto.dueDate = parsedDueDate;
         return dto;
     }
 

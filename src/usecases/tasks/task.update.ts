@@ -16,7 +16,7 @@ export class UpdateTaskUseCase {
             ...task,
             title: taskDto.title,
             description: taskDto.description,
-            done: taskDto.done || task.done,
+            done: taskDto.done ?? task.done,
             dueDate: taskDto.dueDate
         }
 
