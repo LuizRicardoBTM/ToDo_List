@@ -1,5 +1,5 @@
-import type { TaskInterface } from "../entity/entity.interface.js";
-import type TaskRepositoryInterface from "../repository/repository.interface.js";
+import type { TaskInterface } from "../../entity/entity.interface.js";
+import type TaskRepositoryInterface from "../../repository/repository.interface.js";
 
 export class FindAllTasksUseCase {
     constructor( private taskRepository: TaskRepositoryInterface ){}

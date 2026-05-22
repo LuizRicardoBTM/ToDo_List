@@ -26,3 +26,16 @@ export interface TaskDTO {
     done?: boolean,
     dueDate: Date
 }
+
+export interface UserInterface extends BaseInterface {
+    get name(): string,
+    get email(): string,
+    get password(): string
+}
+
+export interface UserDTO {
+    id: string;
+    name: string,
+    email: string,
+    password: string
+}
