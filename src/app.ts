@@ -1,5 +1,5 @@
-import express from "express";
 import 'dotenv/config';
+import express from "express";
 import { TaskController } from "./controllers/task.controller.js";
 import { taskRouter } from "./routes/task.router.js";
 import { TaskRepository } from "./repository/task.repository.js";
@@ -23,8 +23,8 @@ const findAllTasks = new FindAllTasksUseCase(repository);
 const taskController = new TaskController(createTask, deleteTask, updateTask, findTaskById, findAllTasks);
 
 const taskRouterInstance = taskRouter(taskController);
-app.use("/tasks", taskRouterInstance);
 
+app.use("/tasks", taskRouterInstance);
 
 
 app.listen(PORT, () =>{
