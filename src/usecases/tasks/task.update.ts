@@ -1,4 +1,5 @@
 import type { TaskDTO } from "../../entity/entity.interface.js";
+import { TaskEntity } from "../../entity/task.entity.js";
 import type { TaskRepositoryInterface } from "../../repository/repository.interface.js";
 
 export class UpdateTaskUseCase {
@@ -12,13 +13,14 @@ export class UpdateTaskUseCase {
             throw new Error('Task not found');
         }
 
-        const updatedTask = {
-            ...task,
+        const updatedTask = new TaskEntity({
+            id: task.id,
+            userId: task.userId,
             title: taskDto.title,
             description: taskDto.description,
             done: taskDto.done ?? task.done,
             dueDate: taskDto.dueDate
-        }
+        });
 
         await this.taskRepository.updateTask(updatedTask);
     }
