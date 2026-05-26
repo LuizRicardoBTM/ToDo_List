@@ -1,6 +1,7 @@
 import type { TaskDTO } from '../entity/entity.interface.js';
 export class TaskDto {
     id: string;
+    userId: string;
     title: string;
     description: string;
     createdAt?: Date;
@@ -9,6 +10,7 @@ export class TaskDto {
 
     constructor(data: TaskDTO){
         this.id = data.id;
+        this.userId = data.userId;
         this.title = data.title;
         this.description = data.description;
         this.createdAt = data.createdAt || new Date();

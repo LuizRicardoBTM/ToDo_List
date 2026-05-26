@@ -1,9 +1,9 @@
 import type { Request, Response } from "express";
-import type { CreateTaskUseCase } from "../usecases/task.create.js";
-import type { DeleteTaskUseCase } from "../usecases/task.delete.js";
-import type { FindAllTasksUseCase } from "../usecases/task.find.all.js";
-import type { FindTaskByIdUseCase } from "../usecases/task.find.by.id.js";
-import type { UpdateTaskUseCase } from "../usecases/task.update.js";
+import type { CreateTaskUseCase } from "../usecases/tasks/task.create.js";
+import type { DeleteTaskUseCase } from "../usecases/tasks/task.delete.js";
+import type { FindAllTasksUseCase } from "../usecases/tasks/task.find.all.js";
+import type { FindTaskByIdUseCase } from "../usecases/tasks/task.find.by.id.js";
+import type { UpdateTaskUseCase } from "../usecases/tasks/task.update.js";
 import { TaskDto } from "../dto/task.dto.js";
 
 export class TaskController {

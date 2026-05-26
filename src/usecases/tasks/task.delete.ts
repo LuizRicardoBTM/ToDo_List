@@ -1,11 +1,11 @@
-import type TaskRepositoryInterface from "../repository/repository.interface.js";
+import type { TaskRepositoryInterface } from "../../repository/repository.interface.js";
 
 export class DeleteTaskUseCase {
     constructor( private taskRepository: TaskRepositoryInterface ){}
 
     async execute(id: string): Promise<void>{
         
-        await this.taskRepository.delete(id)
+        await this.taskRepository.deleteTask(id)
 
     }
 }

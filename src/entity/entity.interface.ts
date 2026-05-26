@@ -11,6 +11,7 @@ export enum Priority {
 
 export interface TaskInterface extends BaseInterface {
     get title(): string,
+    get userId(): string,
     get description(): string,
     get done(): boolean,
     get createdAt(): Date,
@@ -20,6 +21,7 @@ export interface TaskInterface extends BaseInterface {
 
 export interface TaskDTO {
     id: string;
+    userId: string;
     title: string,
     description: string,
     createdAt?: Date,
