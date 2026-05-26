@@ -1,6 +1,6 @@
 import type { TaskDTO } from "../../entity/entity.interface.js";
 import { TaskEntity } from "../../entity/task.entity.js";
-import type TaskRepositoryInterface from "../../repository/repository.interface.js";
+import type { TaskRepositoryInterface } from "../../repository/repository.interface.js";
 
 export class CreateTaskUseCase {
     constructor( private taskRepository: TaskRepositoryInterface ){}
@@ -9,7 +9,7 @@ export class CreateTaskUseCase {
 
         const task = new TaskEntity(taskDto);
 
-        await this.taskRepository.create(task)
+        await this.taskRepository.createTask(task)
 
     }
 }

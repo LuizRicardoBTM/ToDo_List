@@ -1,12 +1,12 @@
 import type { TaskInterface } from "../../entity/entity.interface.js";
-import type TaskRepositoryInterface from "../../repository/repository.interface.js";
+import type { TaskRepositoryInterface } from "../../repository/repository.interface.js";
 
 export class FindAllTasksUseCase {
     constructor( private taskRepository: TaskRepositoryInterface ){}
 
     async execute(): Promise<TaskInterface[]>{
         
-        const tasks = await this.taskRepository.findAll()
+        const tasks = await this.taskRepository.findAllTasks()
 
         const priorityOrder = {
             "high": 0,

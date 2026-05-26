@@ -1,7 +1,7 @@
 import { PrismaClient } from "../../prisma/database/client.js";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import type { TaskInterface } from "../entity/entity.interface.js";
-import type TaskRepositoryInterface from "./repository.interface.js";
+import type { TaskRepositoryInterface } from "./repository.interface.js";
 import { TaskEntity } from "../entity/task.entity.js";
 
 const adapter = new PrismaBetterSqlite3({
@@ -12,11 +12,12 @@ const prisma = new PrismaClient({adapter});
 
 export class TaskRepository implements TaskRepositoryInterface{
     
-    async create(task: TaskInterface): Promise<void> {
+    async createTask(task: TaskInterface): Promise<void> {
         try{
             await prisma.task.create({
                 data: {
                     id: task.id,
+                    userId: task.userId,
                     title: task.title,
                     description: task.description,
                     createdAt: task.createdAt,
@@ -26,12 +27,11 @@ export class TaskRepository implements TaskRepositoryInterface{
             })
         }
         catch (error){
-            console.error('Prisma error: ', error);
             throw new Error("Couldn't create the task")
         }
     }
 
-    async delete(id: string): Promise<void> {
+    async deleteTask(id: string): Promise<void> {
         try{
             await prisma.task.delete({
                 where: {id: id}
@@ -42,7 +42,7 @@ export class TaskRepository implements TaskRepositoryInterface{
         }
     }
 
-    async update(task: TaskInterface): Promise<void> {
+    async updateTask(task: TaskInterface): Promise<void> {
         try{    
             await prisma.task.update({
                 where: {id: task.id},
@@ -60,7 +60,7 @@ export class TaskRepository implements TaskRepositoryInterface{
         }
     }
 
-    async findById(id: string): Promise<TaskEntity | null> {
+    async findTaskById(id: string): Promise<TaskEntity | null> {
         try{
             const query = await prisma.task.findUnique({
                 where: {id: id}
@@ -79,7 +79,7 @@ export class TaskRepository implements TaskRepositoryInterface{
         }
     }
 
-    async findAll(): Promise<TaskInterface[]> {
+    async findAllTasks(): Promise<TaskInterface[]> {
         try{
             const query = await prisma.task.findMany({})
 

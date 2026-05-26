@@ -28,22 +28,6 @@ export type StringFilter<$PrismaModel = never> = {
   not?: Prisma.NestedStringFilter<$PrismaModel> | string
 }
 
-export type DateTimeFilter<$PrismaModel = never> = {
-  equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  in?: Date[] | string[]
-  notIn?: Date[] | string[]
-  lt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  lte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedDateTimeFilter<$PrismaModel> | Date | string
-}
-
-export type BoolFilter<$PrismaModel = never> = {
-  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
-}
-
 export type StringWithAggregatesFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[]
@@ -59,6 +43,22 @@ export type StringWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedStringFilter<$PrismaModel>
   _max?: Prisma.NestedStringFilter<$PrismaModel>
+}
+
+export type DateTimeFilter<$PrismaModel = never> = {
+  equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  in?: Date[] | string[]
+  notIn?: Date[] | string[]
+  lt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  lte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedDateTimeFilter<$PrismaModel> | Date | string
+}
+
+export type BoolFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
 }
 
 export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -97,22 +97,6 @@ export type NestedStringFilter<$PrismaModel = never> = {
   not?: Prisma.NestedStringFilter<$PrismaModel> | string
 }
 
-export type NestedDateTimeFilter<$PrismaModel = never> = {
-  equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  in?: Date[] | string[]
-  notIn?: Date[] | string[]
-  lt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  lte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedDateTimeFilter<$PrismaModel> | Date | string
-}
-
-export type NestedBoolFilter<$PrismaModel = never> = {
-  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
-}
-
 export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[]
@@ -139,6 +123,22 @@ export type NestedIntFilter<$PrismaModel = never> = {
   gt?: number | Prisma.IntFieldRefInput<$PrismaModel>
   gte?: number | Prisma.IntFieldRefInput<$PrismaModel>
   not?: Prisma.NestedIntFilter<$PrismaModel> | number
+}
+
+export type NestedDateTimeFilter<$PrismaModel = never> = {
+  equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  in?: Date[] | string[]
+  notIn?: Date[] | string[]
+  lt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  lte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedDateTimeFilter<$PrismaModel> | Date | string
+}
+
+export type NestedBoolFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
 }
 
 export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
