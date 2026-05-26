@@ -24,7 +24,6 @@ export class UserRepository implements UserRepositoryInterface{
             })
         }
         catch (error){
-            console.error('Prisma error: ', error);
             throw new Error("Couldn't create the user")
         }
     }

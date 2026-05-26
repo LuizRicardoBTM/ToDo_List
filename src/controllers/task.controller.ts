@@ -17,7 +17,6 @@ export class TaskController {
     ){}
 
     async create(req: Request, res: Response): Promise<void> {
-        console.log('CREATE REACHED:', JSON.stringify(req.body));
         try {
             const dto = TaskDto.createValidation(req.body);
             
@@ -27,7 +26,6 @@ export class TaskController {
 
         } catch(error) {
 
-            console.log('Controller error: ', error);
             res.status(500).json({ message: 'Error creating new task' });
         
         }
