@@ -18,7 +18,7 @@ export class TaskDto {
         this.dueDate = data.dueDate;
     }
 
-    static createValidation(data: TaskDTO): TaskDto {
+    static async createValidation(data: TaskDTO): Promise<TaskDto> {
         
         if (typeof data !== 'object' || data === null) {
             throw new Error('Request body must be an object');
@@ -28,6 +28,9 @@ export class TaskDto {
 
         if (!input.id || typeof input.id !== 'string') {
             throw new Error('id is required and must be a string');
+        }
+        if (!input.userId || typeof input.userId !== 'string') {
+            throw new Error('userId is required and must be a string');
         }
         if (!input.title || typeof input.title !== 'string') {
             throw new Error('title is required and must be a string');
@@ -53,7 +56,7 @@ export class TaskDto {
         return dto;
     }
 
-    static updateValidation(data: TaskDTO): TaskDto {
+    static async updateValidation(data: TaskDTO): Promise<TaskDto> {
         
         if (typeof data !== 'object' || data === null) {
             throw new Error('Request body must be an object');

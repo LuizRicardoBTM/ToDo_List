@@ -43,7 +43,14 @@ export class TaskRepository implements TaskRepositoryInterface{
     }
 
     async updateTask(task: TaskInterface): Promise<void> {
-        try{    
+        try{
+            const user = await prisma.user.findUnique({
+                where: {id: task.userId}
+            })
+
+            if (!user) {
+                throw new Error('User not found');
+            }
             await prisma.task.update({
                 where: {id: task.id},
                 data: {
