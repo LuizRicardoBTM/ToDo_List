@@ -67,7 +67,7 @@ export class TaskRepository implements TaskRepositoryInterface{
         }
     }
 
-    async findTaskById(id: string): Promise<TaskEntity | null> {
+    async findTaskById(id: string): Promise<TaskInterface | null> {
         try{
             const query = await prisma.task.findUnique({
                 where: {id: id}
@@ -90,7 +90,7 @@ export class TaskRepository implements TaskRepositoryInterface{
         try{
             const query = await prisma.task.findMany({})
 
-            const tasks = query.map(task => new TaskEntity(task))
+            const tasks = query.map((task:TaskEntity) => new TaskEntity(task))
             return tasks;
         }
         catch{

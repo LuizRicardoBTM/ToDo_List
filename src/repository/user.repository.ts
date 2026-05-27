@@ -3,6 +3,7 @@ import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import type { UserInterface } from "../entity/entity.interface.js";
 import type { UserRepositoryInterface } from "./repository.interface.js";
 import { UserEntity } from "../entity/user.entity.js";
+import bcrypt from "bcrypt";
 
 const adapter = new PrismaBetterSqlite3({
     url: process.env.DATABASE_URL
@@ -19,7 +20,7 @@ export class UserRepository implements UserRepositoryInterface{
                     id: user.id,
                     email: user.email,
                     name: user.name,
-                    password: user.password
+                    password: bcrypt.hashSync(user.password, 10)
                 }
             })
         }
@@ -46,7 +47,7 @@ export class UserRepository implements UserRepositoryInterface{
                 data: {
                     email: user.email,
                     name: user.name,
-                    password: user.password,
+                    password: bcrypt.hashSync(user.password, 10)
                 }
             })
         }
@@ -55,7 +56,7 @@ export class UserRepository implements UserRepositoryInterface{
         }
     }
 
-    async findUserById(id: string): Promise<UserEntity | null> {
+    async findUserById(id: string): Promise<UserInterface | null> {
         try{
             const query = await prisma.user.findUnique({
                 where: {id: id}
@@ -74,11 +75,11 @@ export class UserRepository implements UserRepositoryInterface{
         }
     }
 
-    async findAllUsers(): Promise<UserEntity[]> {
+    async findAllUsers(): Promise<UserInterface[]> {
         try{
             const query = await prisma.user.findMany({})
 
-            const users = query.map(user => new UserEntity(user))
+            const users = query.map((user: UserInterface) => new UserEntity(user))
             return users;
         }
         catch{
@@ -86,7 +87,7 @@ export class UserRepository implements UserRepositoryInterface{
         }
     }
 
-    async findUserByEmail(email: string): Promise<UserEntity | null> {
+    async findUserByEmail(email: string): Promise<UserInterface | null> {
         try{
             const query = await prisma.user.findUnique({
                 where: {email: email}

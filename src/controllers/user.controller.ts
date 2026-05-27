@@ -5,6 +5,7 @@ import type { FindAllUsersUseCase } from "../usecases/users/user.find.all.js";
 import type { FindUserByIdUseCase } from "../usecases/users/user.find.by.id.js";
 import type { UpdateUserUseCase } from "../usecases/users/user.update.js";
 import { UserDto } from "../dto/user.dto.js";
+import type { UserPasswordValidator } from "../usecases/users/user.login.js";
 
 export class UserController {
     constructor(
@@ -12,7 +13,8 @@ export class UserController {
         private deleteUseCase: DeleteUserUseCase,
         private updateUseCase: UpdateUserUseCase,
         private findByIdUseCase: FindUserByIdUseCase,
-        private findAllUseCase: FindAllUsersUseCase
+        private findAllUseCase: FindAllUsersUseCase,
+        private userPasswordValidator: UserPasswordValidator
         
     ){}
 
@@ -94,6 +96,18 @@ export class UserController {
             
             res.status(500).json({ message: 'Error finding users' });
 
+        }
+    }
+
+    async login(req: Request, res: Response): Promise<void> {
+        try {
+            const { email, password } = req.body;
+
+            const token = await this.userPasswordValidator.execute(email, password);
+
+            res.status(200).json({ token });
+        } catch (error) {
+            res.status(401).json({ message: 'Invalid credentials' });
         }
     }
 }
