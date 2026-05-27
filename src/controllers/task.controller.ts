@@ -18,7 +18,7 @@ export class TaskController {
 
     async create(req: Request, res: Response): Promise<void> {
         try {
-            const dto = TaskDto.createValidation(req.body);
+            const dto = await TaskDto.createValidation(req.body);
             
             await this.createUseCase.execute(dto);
 
@@ -48,7 +48,7 @@ export class TaskController {
 
     async update(req: Request, res: Response): Promise<void>{
         try {
-            const dto = TaskDto.updateValidation(req.body);
+            const dto = await TaskDto.updateValidation(req.body);
 
             await this.updateUseCase.execute(dto);
 

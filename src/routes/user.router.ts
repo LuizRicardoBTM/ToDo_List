@@ -9,6 +9,7 @@ export function userRouter(controller: UserController): Router {
     router.delete('/:id', controller.delete.bind(controller));
     router.get('/:id', controller.findById.bind(controller));
     router.get('/', controller.findAll.bind(controller));
+    router.post('/login', controller.login.bind(controller));
     
     return router;
 }

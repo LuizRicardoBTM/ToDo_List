@@ -43,7 +43,14 @@ export class TaskRepository implements TaskRepositoryInterface{
     }
 
     async updateTask(task: TaskInterface): Promise<void> {
-        try{    
+        try{
+            const user = await prisma.user.findUnique({
+                where: {id: task.userId}
+            })
+
+            if (!user) {
+                throw new Error('User not found');
+            }
             await prisma.task.update({
                 where: {id: task.id},
                 data: {
@@ -60,7 +67,7 @@ export class TaskRepository implements TaskRepositoryInterface{
         }
     }
 
-    async findTaskById(id: string): Promise<TaskEntity | null> {
+    async findTaskById(id: string): Promise<TaskInterface | null> {
         try{
             const query = await prisma.task.findUnique({
                 where: {id: id}
@@ -83,7 +90,7 @@ export class TaskRepository implements TaskRepositoryInterface{
         try{
             const query = await prisma.task.findMany({})
 
-            const tasks = query.map(task => new TaskEntity(task))
+            const tasks = query.map((task:TaskEntity) => new TaskEntity(task))
             return tasks;
         }
         catch{
