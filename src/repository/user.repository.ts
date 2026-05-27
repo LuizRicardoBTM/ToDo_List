@@ -85,4 +85,23 @@ export class UserRepository implements UserRepositoryInterface{
             throw new Error("Couldn't connect to the database")
         }
     }
+
+    async findUserByEmail(email: string): Promise<UserEntity | null> {
+        try{
+            const query = await prisma.user.findUnique({
+                where: {email: email}
+            })
+
+            if (!query) {
+                return null;
+            }
+
+            const user = new UserEntity(query)
+            
+            return user;
+        }
+        catch{
+            throw new Error("Couldn't connect to the database")
+        }
+    }
 }

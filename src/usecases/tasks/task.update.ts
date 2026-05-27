@@ -1,12 +1,11 @@
 import type { TaskDTO } from "../../entity/entity.interface.js";
 import { TaskEntity } from "../../entity/task.entity.js";
-import type { TaskRepositoryInterface } from "../../repository/repository.interface.js";
-import type { UserRepository } from "../../repository/user.repository.js";
+import type { TaskRepositoryInterface, UserRepositoryInterface } from "../../repository/repository.interface.js";
 
 export class UpdateTaskUseCase {
     constructor( 
         private taskRepository: TaskRepositoryInterface, 
-        private userRepository: UserRepository 
+        private userRepository: UserRepositoryInterface
     ){}
 
     async execute(taskDto: TaskDTO): Promise<void>{

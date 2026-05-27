@@ -14,4 +14,5 @@ export interface UserRepositoryInterface {
     deleteUser(id: string): Promise<void>;
     findUserById(id: string): Promise<UserInterface | null>;
     findAllUsers(): Promise<UserInterface[]>
+    findUserByEmail(email: string): Promise<UserInterface | null>;
 }

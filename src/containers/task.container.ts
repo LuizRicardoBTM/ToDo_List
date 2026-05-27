@@ -6,13 +6,17 @@ import { DeleteTaskUseCase } from "../usecases/tasks/task.delete.js";
 import { UpdateTaskUseCase } from "../usecases/tasks/task.update.js";
 import { FindTaskByIdUseCase } from "../usecases/tasks/task.find.by.id.js";
 import { FindAllTasksUseCase } from "../usecases/tasks/task.find.all.js";
+import { UserRepository } from "../repository/user.repository.js";
 
-const repository = new TaskRepository();
-const createTask = new CreateTaskUseCase(repository);
-const deleteTask = new DeleteTaskUseCase(repository);
-const updateTask = new UpdateTaskUseCase(repository);
-const findTaskById = new FindTaskByIdUseCase(repository);
-const findAllTasks = new FindAllTasksUseCase(repository);
+const taskRepository = new TaskRepository();
+const userRepository = new UserRepository();
+
+
+const createTask = new CreateTaskUseCase(taskRepository, userRepository);
+const deleteTask = new DeleteTaskUseCase(taskRepository);
+const updateTask = new UpdateTaskUseCase(taskRepository, userRepository);
+const findTaskById = new FindTaskByIdUseCase(taskRepository);
+const findAllTasks = new FindAllTasksUseCase(taskRepository);
 
 
 const taskController = new TaskController(createTask, deleteTask, updateTask, findTaskById, findAllTasks);
