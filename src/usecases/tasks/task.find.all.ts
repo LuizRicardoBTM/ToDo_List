@@ -8,6 +8,10 @@ export class FindAllTasksUseCase {
         
         const tasks = await this.taskRepository.findAllTasks(userId)
 
+        if (tasks.some(task => task.userId !== userId)){
+            throw new Error("Unauthorized")
+        }
+        
         const priorityOrder = {
             "high": 0,
             "medium": 1,

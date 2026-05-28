@@ -7,7 +7,8 @@ export class FindTaskByIdUseCase {
      ){}
 
     async execute(id: string, userId: string): Promise<TaskInterface | null>{
-        
+         
         return await this.taskRepository.findTaskById(id, userId)
+   
     }
 }

@@ -16,6 +16,10 @@ export class CreateTaskUseCase {
             throw new Error('User not found');
         }
 
+        if (taskDto.userId && taskDto.userId !== userId) {
+            throw new Error('Unauthorized');
+        }
+
         const task = new TaskEntity(taskDto);
 
         await this.taskRepository.createTask(task, userId);

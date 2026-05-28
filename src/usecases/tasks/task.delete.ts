@@ -7,6 +7,12 @@ export class DeleteTaskUseCase {
 
     async execute(id: string, userId: string): Promise<void>{
         
+        const task = await this.taskRepository.findTaskById(id, userId)
+
+        if (!task) {
+            throw new Error("Task not found")
+        }
+
         await this.taskRepository.deleteTask(id, userId)
 
     }

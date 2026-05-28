@@ -19,7 +19,11 @@ export class TaskController {
         try {
             const dto = await TaskDto.createValidation(req.body);
             const userId = req.userId as string;
-
+            
+            if (dto.userId && dto.userId !== userId) {
+                res.status(403).json({ message: 'Forbidden' });
+                return;
+            }
             await this.createUseCase.execute(dto, userId);
 
             res.status(201).json({ message: 'New Task Created' });
@@ -35,7 +39,7 @@ export class TaskController {
         try {
             const id = req.params.id as string;
             const userId = req.userId as string;
-
+            
             await this.deleteUseCase.execute(id, userId);
 
             res.status(200).json({ message: 'Task deleted' });
@@ -51,6 +55,11 @@ export class TaskController {
         try {
             const dto = await TaskDto.updateValidation(req.body);
             const userId = req.userId as string;
+
+            if (dto.userId && dto.userId !== userId) {
+                res.status(403).json({ message: 'Forbidden' });
+                return;
+            }
 
             await this.updateUseCase.execute(dto, userId);
 
@@ -71,6 +80,11 @@ export class TaskController {
 
             const task = await this.findByIdUseCase.execute(id, userId)
 
+            if (task?.userId !== userId) {
+                res.status(403).json({ message: 'Forbidden' });
+                return;
+            }
+
             res.status(200).json({
                 taskFound: task,
                 message: 'Task found'
@@ -87,11 +101,16 @@ export class TaskController {
         try{
 
             const userId = req.userId as string;
-            const task = await this.findAllUseCase.execute(userId)
+            const tasks = await this.findAllUseCase.execute(userId)
+            
+            if (tasks.some(task => task.userId !== userId)) {
+                res.status(403).json({ message: 'Forbidden' });
+                return;
+            }
 
             res.status(200).json({
-                allTasks: task,
-                message: 'Task found'
+                allTasks: tasks,
+                message: 'Tasks found'
             });
 
         } catch (error) {

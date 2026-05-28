@@ -22,6 +22,10 @@ export class UpdateTaskUseCase {
             throw new Error('User not found');
         }
 
+        if (task.userId !== userId) {
+            throw new Error('Unauthorized');
+        }
+
         const updatedTask = new TaskEntity({
             id: task.id,
             userId: task.userId,

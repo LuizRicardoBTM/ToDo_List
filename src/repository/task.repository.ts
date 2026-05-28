@@ -85,7 +85,7 @@ export class TaskRepository implements TaskRepositoryInterface{
                 where: {userId: userId}
             })
 
-            const tasks = query.map((task:TaskEntity) => new TaskEntity(task))
+            const tasks = query.map(task => new TaskEntity(task))
             return tasks;
         }
         catch{
