@@ -7,10 +7,6 @@ export class FindAllTasksUseCase {
     async execute(userId: string): Promise<TaskInterface[]>{
         
         const tasks = await this.taskRepository.findAllTasks(userId)
-
-        if (tasks.some(task => task.userId !== userId)){
-            throw new Error("Unauthorized")
-        }
         
         const priorityOrder = {
             "high": 0,

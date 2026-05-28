@@ -39,13 +39,18 @@ export class TaskController {
         try {
             const id = req.params.id as string;
             const userId = req.userId as string;
-            
+
             await this.deleteUseCase.execute(id, userId);
 
             res.status(200).json({ message: 'Task deleted' });
         
         } catch (error) {
 
+            if (error instanceof Error && error.message === 'Task not found') {
+                res.status(404).json({ message: 'Task not found' });
+                return;
+            }
+            
             res.status(500).json({ message: 'Error deleting the task' });
             
         }
@@ -79,11 +84,18 @@ export class TaskController {
             const userId = req.userId as string;
 
             const task = await this.findByIdUseCase.execute(id, userId)
+            
+            if (!task) {
+                res.status(404).json({ message: 'Task not found' });
+                return;
+            }
 
             if (task?.userId !== userId) {
                 res.status(403).json({ message: 'Forbidden' });
                 return;
             }
+
+            
 
             res.status(200).json({
                 taskFound: task,
@@ -103,11 +115,6 @@ export class TaskController {
             const userId = req.userId as string;
             const tasks = await this.findAllUseCase.execute(userId)
             
-            if (tasks.some(task => task.userId !== userId)) {
-                res.status(403).json({ message: 'Forbidden' });
-                return;
-            }
-
             res.status(200).json({
                 allTasks: tasks,
                 message: 'Tasks found'
