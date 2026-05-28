@@ -4,6 +4,7 @@ import { Priority } from "./entity.interface.js";
 
 export class TaskEntity implements TaskInterface{
     private _id: string
+    private _userId: string
     private _title: string
     private _description: string
     private _createdAt: Date
@@ -13,6 +14,7 @@ export class TaskEntity implements TaskInterface{
 
     constructor(task: TaskDTO) {
         this._id = task.id;
+        this._userId = task.userId!;
         this._title = task.title;
         this._description = task.description;
         this._createdAt = task.createdAt || new Date();
@@ -34,6 +36,10 @@ export class TaskEntity implements TaskInterface{
 
     get id(): string {
         return this._id;
+    }
+
+    get userId(): string {
+        return this._userId;
     }
 
     get title(): string {
