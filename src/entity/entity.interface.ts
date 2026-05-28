@@ -21,7 +21,7 @@ export interface TaskInterface extends BaseInterface {
 
 export interface TaskDTO {
     id: string;
-    userId: string;
+    userId?: string;
     title: string,
     description: string,
     createdAt?: Date,

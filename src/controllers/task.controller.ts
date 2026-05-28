@@ -18,7 +18,7 @@ export class TaskController {
     async create(req: Request, res: Response): Promise<void> {
         try {
             const dto = await TaskDto.createValidation(req.body);
-            const userId = req.params.id as string;
+            const userId = req.userId as string;
 
             await this.createUseCase.execute(dto, userId);
 
@@ -34,7 +34,7 @@ export class TaskController {
     async delete(req: Request, res: Response): Promise<void>{
         try {
             const id = req.params.id as string;
-            const userId = req.params.userId as string;
+            const userId = req.userId as string;
 
             await this.deleteUseCase.execute(id, userId);
 
@@ -50,7 +50,7 @@ export class TaskController {
     async update(req: Request, res: Response): Promise<void>{
         try {
             const dto = await TaskDto.updateValidation(req.body);
-            const userId = req.params.userId as string;
+            const userId = req.userId as string;
 
             await this.updateUseCase.execute(dto, userId);
 
@@ -67,7 +67,7 @@ export class TaskController {
         try{
 
             const id = req.params.id as string;
-            const userId = req.params.userId as string;
+            const userId = req.userId as string;
 
             const task = await this.findByIdUseCase.execute(id, userId)
 
@@ -86,7 +86,7 @@ export class TaskController {
     async findAll(req: Request, res: Response): Promise<void>{
         try{
 
-            const userId = req.params.id as string;
+            const userId = req.userId as string;
             const task = await this.findAllUseCase.execute(userId)
 
             res.status(200).json({
