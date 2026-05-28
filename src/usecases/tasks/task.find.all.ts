@@ -4,9 +4,9 @@ import type { TaskRepositoryInterface } from "../../repository/repository.interf
 export class FindAllTasksUseCase {
     constructor( private taskRepository: TaskRepositoryInterface ){}
 
-    async execute(): Promise<TaskInterface[]>{
+    async execute(userId: string): Promise<TaskInterface[]>{
         
-        const tasks = await this.taskRepository.findAllTasks()
+        const tasks = await this.taskRepository.findAllTasks(userId)
 
         const priorityOrder = {
             "high": 0,

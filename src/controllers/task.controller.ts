@@ -13,14 +13,14 @@ export class TaskController {
         private updateUseCase: UpdateTaskUseCase,
         private findByIdUseCase: FindTaskByIdUseCase,
         private findAllUseCase: FindAllTasksUseCase
-        
     ){}
 
     async create(req: Request, res: Response): Promise<void> {
         try {
             const dto = await TaskDto.createValidation(req.body);
-            
-            await this.createUseCase.execute(dto);
+            const userId = req.params.id as string;
+
+            await this.createUseCase.execute(dto, userId);
 
             res.status(201).json({ message: 'New Task Created' });
 
@@ -34,8 +34,9 @@ export class TaskController {
     async delete(req: Request, res: Response): Promise<void>{
         try {
             const id = req.params.id as string;
+            const userId = req.params.userId as string;
 
-            await this.deleteUseCase.execute(id);
+            await this.deleteUseCase.execute(id, userId);
 
             res.status(200).json({ message: 'Task deleted' });
         
@@ -49,8 +50,9 @@ export class TaskController {
     async update(req: Request, res: Response): Promise<void>{
         try {
             const dto = await TaskDto.updateValidation(req.body);
+            const userId = req.params.userId as string;
 
-            await this.updateUseCase.execute(dto);
+            await this.updateUseCase.execute(dto, userId);
 
             res.status(200).json({ message: 'Task updated' });
 
@@ -65,8 +67,9 @@ export class TaskController {
         try{
 
             const id = req.params.id as string;
+            const userId = req.params.userId as string;
 
-            const task = await this.findByIdUseCase.execute(id)
+            const task = await this.findByIdUseCase.execute(id, userId)
 
             res.status(200).json({
                 taskFound: task,
@@ -83,7 +86,8 @@ export class TaskController {
     async findAll(req: Request, res: Response): Promise<void>{
         try{
 
-            const task = await this.findAllUseCase.execute()
+            const userId = req.params.id as string;
+            const task = await this.findAllUseCase.execute(userId)
 
             res.status(200).json({
                 allTasks: task,
