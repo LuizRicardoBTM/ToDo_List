@@ -1,11 +1,19 @@
 import type { TaskRepositoryInterface } from "../../repository/repository.interface.js";
 
 export class DeleteTaskUseCase {
-    constructor( private taskRepository: TaskRepositoryInterface ){}
+    constructor( 
+        private taskRepository: TaskRepositoryInterface
+     ){}
 
-    async execute(id: string): Promise<void>{
+    async execute(id: string, userId: string): Promise<void>{
         
-        await this.taskRepository.deleteTask(id)
+        const task = await this.taskRepository.findTaskById(id, userId)
+
+        if (!task) {
+            throw new Error("Task not found")
+        }
+
+        await this.taskRepository.deleteTask(id, userId)
 
     }
 }

@@ -8,17 +8,21 @@ export class CreateTaskUseCase {
         private userRepository: UserRepositoryInterface
     ){}
 
-    async execute(taskDto: TaskDTO): Promise<void>{
+    async execute(taskDto: TaskDTO, userId: string): Promise<void>{
 
-        const user = await this.userRepository.findUserById(taskDto.userId);
+        const user = await this.userRepository.findUserById(userId);
 
         if (!user) {
             throw new Error('User not found');
         }
 
+        if (taskDto.userId && taskDto.userId !== userId) {
+            throw new Error('Unauthorized');
+        }
+
         const task = new TaskEntity(taskDto);
 
-        await this.taskRepository.createTask(task)
+        await this.taskRepository.createTask(task, userId);
 
     }
 }

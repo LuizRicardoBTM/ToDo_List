@@ -1,7 +1,7 @@
 import type { TaskDTO } from '../entity/entity.interface.js';
 export class TaskDto {
     id: string;
-    userId: string;
+    userId?: string;
     title: string;
     description: string;
     createdAt?: Date;
@@ -10,7 +10,7 @@ export class TaskDto {
 
     constructor(data: TaskDTO){
         this.id = data.id;
-        this.userId = data.userId;
+        this.userId = data.userId!;
         this.title = data.title;
         this.description = data.description;
         this.createdAt = data.createdAt || new Date();
@@ -29,9 +29,6 @@ export class TaskDto {
         if (!input.id || typeof input.id !== 'string') {
             throw new Error('id is required and must be a string');
         }
-        if (!input.userId || typeof input.userId !== 'string') {
-            throw new Error('userId is required and must be a string');
-        }
         if (!input.title || typeof input.title !== 'string') {
             throw new Error('title is required and must be a string');
         }
@@ -48,6 +45,7 @@ export class TaskDto {
         
         const dto = new TaskDto(input as TaskDTO);
         dto.id = input.id as string;
+        dto.userId = input.userId as string;
         dto.title = input.title as string;
         dto.description = input.description as string;
         dto.createdAt = input.createdAt as Date ?? new Date();
@@ -83,6 +81,7 @@ export class TaskDto {
         
         const dto = new TaskDto(input as TaskDTO);
         dto.id = input.id as string;
+        dto.userId = input.userId as string;
         dto.title = input.title as string;
         dto.description = input.description as string;
         dto.done = input.done as boolean;

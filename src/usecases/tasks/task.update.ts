@@ -8,18 +8,22 @@ export class UpdateTaskUseCase {
         private userRepository: UserRepositoryInterface
     ){}
 
-    async execute(taskDto: TaskDTO): Promise<void>{
+    async execute(taskDto: TaskDTO, userId: string): Promise<void>{
 
-        const task = await this.taskRepository.findTaskById(taskDto.id);
+        const task = await this.taskRepository.findTaskById(taskDto.id, userId);
 
         if(!task){
             throw new Error('Task not found');
         }
 
-        const user = await this.userRepository.findUserById(taskDto.userId);
+        const user = await this.userRepository.findUserById(userId);
 
         if (!user) {
             throw new Error('User not found');
+        }
+
+        if (task.userId !== userId) {
+            throw new Error('Unauthorized');
         }
 
         const updatedTask = new TaskEntity({
@@ -31,6 +35,6 @@ export class UpdateTaskUseCase {
             dueDate: taskDto.dueDate
         });
 
-        await this.taskRepository.updateTask(updatedTask);
+        await this.taskRepository.updateTask(updatedTask, userId);
     }
 }

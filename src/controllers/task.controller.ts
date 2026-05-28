@@ -13,14 +13,18 @@ export class TaskController {
         private updateUseCase: UpdateTaskUseCase,
         private findByIdUseCase: FindTaskByIdUseCase,
         private findAllUseCase: FindAllTasksUseCase
-        
     ){}
 
     async create(req: Request, res: Response): Promise<void> {
         try {
             const dto = await TaskDto.createValidation(req.body);
+            const userId = req.userId as string;
             
-            await this.createUseCase.execute(dto);
+            if (dto.userId && dto.userId !== userId) {
+                res.status(403).json({ message: 'Forbidden' });
+                return;
+            }
+            await this.createUseCase.execute(dto, userId);
 
             res.status(201).json({ message: 'New Task Created' });
 
@@ -34,13 +38,19 @@ export class TaskController {
     async delete(req: Request, res: Response): Promise<void>{
         try {
             const id = req.params.id as string;
+            const userId = req.userId as string;
 
-            await this.deleteUseCase.execute(id);
+            await this.deleteUseCase.execute(id, userId);
 
             res.status(200).json({ message: 'Task deleted' });
         
         } catch (error) {
 
+            if (error instanceof Error && error.message === 'Task not found') {
+                res.status(404).json({ message: 'Task not found' });
+                return;
+            }
+            
             res.status(500).json({ message: 'Error deleting the task' });
             
         }
@@ -49,8 +59,14 @@ export class TaskController {
     async update(req: Request, res: Response): Promise<void>{
         try {
             const dto = await TaskDto.updateValidation(req.body);
+            const userId = req.userId as string;
 
-            await this.updateUseCase.execute(dto);
+            if (dto.userId && dto.userId !== userId) {
+                res.status(403).json({ message: 'Forbidden' });
+                return;
+            }
+
+            await this.updateUseCase.execute(dto, userId);
 
             res.status(200).json({ message: 'Task updated' });
 
@@ -65,8 +81,21 @@ export class TaskController {
         try{
 
             const id = req.params.id as string;
+            const userId = req.userId as string;
 
-            const task = await this.findByIdUseCase.execute(id)
+            const task = await this.findByIdUseCase.execute(id, userId)
+            
+            if (!task) {
+                res.status(404).json({ message: 'Task not found' });
+                return;
+            }
+
+            if (task?.userId !== userId) {
+                res.status(403).json({ message: 'Forbidden' });
+                return;
+            }
+
+            
 
             res.status(200).json({
                 taskFound: task,
@@ -83,11 +112,12 @@ export class TaskController {
     async findAll(req: Request, res: Response): Promise<void>{
         try{
 
-            const task = await this.findAllUseCase.execute()
-
+            const userId = req.userId as string;
+            const tasks = await this.findAllUseCase.execute(userId)
+            
             res.status(200).json({
-                allTasks: task,
-                message: 'Task found'
+                allTasks: tasks,
+                message: 'Tasks found'
             });
 
         } catch (error) {

@@ -1,11 +1,11 @@
 import type { TaskInterface, UserInterface } from "../entity/entity.interface.js";
 
 export interface TaskRepositoryInterface {
-    createTask(task: TaskInterface): Promise<void>;
-    updateTask(task: TaskInterface): Promise<void>;
-    deleteTask(id: string): Promise<void>;
-    findTaskById(id: string): Promise<TaskInterface | null>;
-    findAllTasks(): Promise<TaskInterface[]>
+    createTask(task: TaskInterface, userId: string): Promise<void>;
+    updateTask(task: TaskInterface, userId: string): Promise<void>;
+    deleteTask(id: string, userId: string): Promise<void>;
+    findTaskById(id: string, userId: string): Promise<TaskInterface | null>;
+    findAllTasks(userId: string): Promise<TaskInterface[]>
 }
 
 export interface UserRepositoryInterface {

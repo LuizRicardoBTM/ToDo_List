@@ -14,7 +14,7 @@ export class TaskEntity implements TaskInterface{
 
     constructor(task: TaskDTO) {
         this._id = task.id;
-        this._userId = task.userId;
+        this._userId = task.userId!;
         this._title = task.title;
         this._description = task.description;
         this._createdAt = task.createdAt || new Date();
